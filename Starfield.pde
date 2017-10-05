@@ -7,7 +7,7 @@ void setup()
     glitter[i] = new NormalParticle();
   }
   glitter[0] = new OddballParticle();
-  //glitter[1] = new JumboParticle();
+  glitter[1] = new JumboParticle();
 }
 void draw()
 {
@@ -18,6 +18,7 @@ void draw()
     glitter[i].show();
   }
 }
+
 class NormalParticle implements Particle
 {
   double myX, myY, mySpeed, myDir;
@@ -34,6 +35,11 @@ class NormalParticle implements Particle
   {
     myX = myX + mySpeed * Math.cos(myDir);
     myY = myY + mySpeed * Math.sin(myDir);
+    if((myX < 0) || (myX > 500))
+      myX =  myY = 250;
+    if((myY < 0) || (myY > 500))
+      myY = myX = 250;
+      
   }
 
   public void show()
@@ -61,16 +67,22 @@ class OddballParticle implements Particle
   }
   public void move()
   {
-    myX = myX + 5;
+    myX = myX + 3;
+    if (myX > 500)
+    myX = 250;
   }
 
   public void show()
   {
     fill(myColor);
-    rect((float)myX, (float)myY, 20, 10);
+    rect((float)myX, (float)myY, 30, 20);
   }
 }
 class JumboParticle extends NormalParticle//uses inheritance
 {
-  //your code here
+   void show()
+  {
+    fill(255, 221, 225);
+    ellipse((float)myX, (float)myY, 40, 40);
+  }
 }
